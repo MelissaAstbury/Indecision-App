@@ -30,3 +30,17 @@ let template = (
 let appRoot = document.getElementById("app");
 
 ReactDOM.render(template, appRoot);
+
+const square = function (x) {
+    return x * x;
+}
+
+// const squareArrow = (x) => {
+//     return x * x;
+// }
+
+const squareArrow = (x) => x * x;
+
+console.log(square(8));
+
+// square(8);
