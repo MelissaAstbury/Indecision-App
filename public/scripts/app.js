@@ -1,38 +1,84 @@
 "use strict";
 
-//arguments object - no longer bound with arrow functions
+// console.log("app.js is running");
 
-var add = function add(a, b) {
-    return a + b;
+//JSX - Jacascript XML. This is a language extension of Javascript
+var title = "Indecision App";
+var subTitle = "This is some information";
+var listItems = ["Item one", "Item two"];
+var todos = 6;
+
+// function getTitle(title) {
+//     if (title) {
+//         return <h1>{title}</h1>;
+//     }
+// }
+
+
+// let template = (
+//     <div>
+//         {getTitle(title)}
+//         <p>{subTitle}</p>
+//         {subTitle ? 'subTitle exists' : 'I dont exist'}
+//         <ol>
+//             <li>{listItems[0]}</li>
+//             <li>{listItems[1]}</li>
+//         </ol>
+//         {(todos && todos >= 6) && <p>You are too young</p>}
+//     </div>
+// );
+
+var count = 0;
+
+var addOne = function addOne() {
+    //count = 21;
+    console.log("addOne");
 };
-console.log(add(55, 1));
 
-// this keyword - no longer bound
-
-var user = {
-    name: "Melissa",
-    cities: ["Manchester", "America", "Wales"],
-    printPlacedLived: function printPlacedLived() {
-        var _this = this;
-
-        this.cities.forEach(function (city) {
-            console.log(_this.name + " has lived in " + city);
-        });
-    }
+//challange time
+var minusOne = function minusOne() {
+    console.log("minusOne");
 };
-user.printPlacedLived();
 
-//Challenge
-
-var multiplier = {
-    numbers: [10, 20, 30],
-    multiplyBy: 3,
-    multiply: function multiply() {
-        var _this2 = this;
-
-        return this.numbers.map(function (number) {
-            return number * _this2.multiplyBy;
-        });
-    }
+var reset = function reset() {
+    console.log("reset");
 };
-console.log(multiplier.multiply());
+
+var templateTwo = React.createElement(
+    "div",
+    null,
+    React.createElement(
+        "h1",
+        null,
+        "Count: ",
+        count
+    ),
+    React.createElement(
+        "button",
+        { onClick: addOne },
+        "+1"
+    ),
+    React.createElement(
+        "button",
+        { onClick: minusOne },
+        "-1"
+    ),
+    React.createElement(
+        "button",
+        { onClick: reset },
+        "reset"
+    )
+);
+console.log(templateTwo);
+
+// const templateThree = (
+//     <div>
+//         <h1>Count: {count}</h1>
+//         <button onClick={minusOne}>-1</button>
+//     </div>
+// );
+// console.log(templateThree);
+
+var appRoot = document.getElementById("app");
+
+ReactDOM.render(templateTwo, appRoot);
