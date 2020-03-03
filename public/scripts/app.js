@@ -3,89 +3,76 @@
 // console.log("app.js is running");
 
 //JSX - Jacascript XML. This is a language extension of Javascript
-var title = "Indecision App";
-var subTitle = "This is some information";
-var listItems = ["Item one", "Item two"];
-var todos = 6;
-
-// function getTitle(title) {
-//     if (title) {
-//         return <h1>{title}</h1>;
-//     }
-// }
-
-
-// let template = (
-//     <div>
-//         {getTitle(title)}
-//         <p>{subTitle}</p>
-//         {subTitle ? 'subTitle exists' : 'I dont exist'}
-//         <ol>
-//             <li>{listItems[0]}</li>
-//             <li>{listItems[1]}</li>
-//         </ol>
-//         {(todos && todos >= 6) && <p>You are too young</p>}
-//     </div>
-// );
-
-var count = 0;
-
-var addOne = function addOne() {
-    count++;
-    renderCounterApp();
+var app = {
+    title: "Indecision App",
+    subTitle: "This is some information",
+    options: []
 };
 
-//challange time
-var minusOne = function minusOne() {
-    count -= 1;
-    renderCounterApp();
+var onFormSubmit = function onFormSubmit(e) {
+    e.preventDefault();
+
+    var option = e.target.elements.option.value;
+
+    if (option) {
+        app.options.push(option);
+        e.target.elements.option.value = "";
+        renderApp();
+    }
 };
-
-var reset = function reset() {
-    count = 0;
-    renderCounterApp();
-};
-
-// console.log(templateTwo);
-
-// const templateThree = (
-//     <div>
-//         <h1>Count: {count}</h1>
-//         <button onClick={minusOne}>-1</button>
-//     </div>
-// );
-// console.log(templateThree);
 
 var appRoot = document.getElementById("app");
 
-var renderCounterApp = function renderCounterApp() {
-    var templateTwo = React.createElement(
+var renderApp = function renderApp() {
+    var template = React.createElement(
         "div",
         null,
         React.createElement(
             "h1",
             null,
-            "Count: ",
-            count
+            app.title
+        ),
+        app.subTitle && React.createElement(
+            "p",
+            null,
+            app.subTitle
         ),
         React.createElement(
-            "button",
-            { onClick: addOne },
-            "+1"
+            "p",
+            null,
+            app.options.length > 0 ? "Here are your options" : "No options"
         ),
         React.createElement(
-            "button",
-            { onClick: minusOne },
-            "-1"
+            "p",
+            null,
+            app.options.length
         ),
         React.createElement(
-            "button",
-            { onClick: reset },
-            "reset"
+            "ol",
+            null,
+            React.createElement(
+                "li",
+                null,
+                "Item One"
+            ),
+            React.createElement(
+                "li",
+                null,
+                "Item Two"
+            )
+        ),
+        React.createElement(
+            "form",
+            { onSubmit: onFormSubmit },
+            React.createElement("input", { type: "text", name: "option", placeholder: "Enter Here" }),
+            React.createElement(
+                "button",
+                null,
+                "Add Option"
+            )
         )
     );
 
-    ReactDOM.render(templateTwo, appRoot);
+    ReactDOM.render(template, appRoot);
 };
-
-renderCounterApp();
+renderApp();

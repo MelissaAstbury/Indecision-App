@@ -1,73 +1,45 @@
 // console.log("app.js is running");
 
 //JSX - Jacascript XML. This is a language extension of Javascript
-let title = "Indecision App";
-let subTitle = "This is some information";
-let listItems = ["Item one", "Item two"];
-let todos = 6;
-
-// function getTitle(title) {
-//     if (title) {
-//         return <h1>{title}</h1>;
-//     }
-// }
-
-
-// let template = (
-//     <div>
-//         {getTitle(title)}
-//         <p>{subTitle}</p>
-//         {subTitle ? 'subTitle exists' : 'I dont exist'}
-//         <ol>
-//             <li>{listItems[0]}</li>
-//             <li>{listItems[1]}</li>
-//         </ol>
-//         {(todos && todos >= 6) && <p>You are too young</p>}
-//     </div>
-// );
-
-let count = 0;
-
-const addOne = () => {
-    count++;
-    renderCounterApp();
+const app = {
+    title: "Indecision App",
+    subTitle: "This is some information",
+    options: [],
 };
 
-//challange time
-const minusOne = () => {
-    count -= 1;
-    renderCounterApp();
+const onFormSubmit = (e) => {
+    e.preventDefault();
+
+    const option = e.target.elements.option.value;
+
+    if (option) {
+        app.options.push(option);
+        e.target.elements.option.value = "";
+        renderApp();
+    }
 };
-
-const reset = () => {
-    count = 0
-    renderCounterApp();
-};
-
-
-// console.log(templateTwo);
-
-// const templateThree = (
-//     <div>
-//         <h1>Count: {count}</h1>
-//         <button onClick={minusOne}>-1</button>
-//     </div>
-// );
-// console.log(templateThree);
 
 let appRoot = document.getElementById("app");
 
-const renderCounterApp = () => {
-    const templateTwo = (
+const renderApp = () => {
+    const template = (
         <div>
-            <h1>Count: {count}</h1>
-            <button onClick={addOne}>+1</button>
-            <button onClick={minusOne}>-1</button>
-            <button onClick={reset}>reset</button>
+            <h1>{app.title}</h1>
+            {app.subTitle && <p>{app.subTitle}</p>}
+            <p>{app.options.length > 0 ? "Here are your options" : "No options"}</p>
+            <p>{app.options.length}</p>
+            <ol>
+                <li>Item One</li>
+                <li>Item Two</li>
+            </ol>
+            <form onSubmit={onFormSubmit}>
+                <input type="text" name="option" placeholder="Enter Here" />
+                <button>Add Option</button>
+            </form>
         </div>
     );
 
-    ReactDOM.render(templateTwo, appRoot);
-};
 
-renderCounterApp();
+    ReactDOM.render(template, appRoot);
+};
+renderApp();
