@@ -19,6 +19,11 @@ const onFormSubmit = (e) => {
     }
 };
 
+const onMakeDecision = () => {
+    const randomNum = Math.floor(Math.random() * app.options.length);
+    const option = app.options[randomNum];
+};
+
 let appRoot = document.getElementById("app");
 
 const numbers = [55, 101, 1000];
@@ -29,6 +34,7 @@ const renderApp = () => {
             <h1>{app.title}</h1>
             {app.subTitle && <p>{app.subTitle}</p>}
             <p>{app.options.length > 0 ? "Here are your options" : "No options"}</p>
+            <button disabled={app.options.lenght === 0} onClick={onMakeDecision}>What should I do?</button>
             <p>{app.options.length}</p>
             {
                 numbers.map((number) => {
