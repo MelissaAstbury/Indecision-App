@@ -23,6 +23,8 @@ var onFormSubmit = function onFormSubmit(e) {
 
 var appRoot = document.getElementById("app");
 
+var numbers = [55, 101, 1000];
+
 var renderApp = function renderApp() {
     var template = React.createElement(
         "div",
@@ -47,19 +49,24 @@ var renderApp = function renderApp() {
             null,
             app.options.length
         ),
+        numbers.map(function (number) {
+            return React.createElement(
+                "p",
+                { key: number },
+                "Number: ",
+                number
+            );
+        }),
         React.createElement(
             "ol",
             null,
-            React.createElement(
-                "li",
-                null,
-                "Item One"
-            ),
-            React.createElement(
-                "li",
-                null,
-                "Item Two"
-            )
+            app.options.map(function (option) {
+                return React.createElement(
+                    "li",
+                    { key: option },
+                    option
+                );
+            })
         ),
         React.createElement(
             "form",

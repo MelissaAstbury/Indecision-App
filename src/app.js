@@ -21,6 +21,8 @@ const onFormSubmit = (e) => {
 
 let appRoot = document.getElementById("app");
 
+const numbers = [55, 101, 1000];
+
 const renderApp = () => {
     const template = (
         <div>
@@ -28,9 +30,17 @@ const renderApp = () => {
             {app.subTitle && <p>{app.subTitle}</p>}
             <p>{app.options.length > 0 ? "Here are your options" : "No options"}</p>
             <p>{app.options.length}</p>
+            {
+                numbers.map((number) => {
+                    return <p key={number}>Number: {number}</p>
+                })
+            }
             <ol>
-                <li>Item One</li>
-                <li>Item Two</li>
+                {
+                    app.options.map((option) => {
+                        return <li key={option}>{option}</li>
+                    })
+                }
             </ol>
             <form onSubmit={onFormSubmit}>
                 <input type="text" name="option" placeholder="Enter Here" />
